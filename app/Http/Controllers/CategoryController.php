@@ -35,13 +35,13 @@ class CategoryController extends Controller
         {
             $q = $request["query"];
             // orWhere('description','like','%'.$q.'%')
-            $trashedCategories = Category::onlyTrashed()->where('id',$q)->orWhere('name','like','%'.$q.'%')->orWhere('slug','like','%'.$q.'%')->orderBy('id','desc')->paginate(10); // get all trashed categories
+            $trashedCategories = Category::where('id',$q)->orWhere('name','like','%'.$q.'%')->orWhere('slug','like','%'.$q.'%')->onlyTrashed()->orderBy('id','desc')->paginate(10); // get all trashed categories
 
         }
         else
         {
 
-            $trashedCategories = Category::onlyTrashed()->orderBy('id','desc')->paginate(10); // get all trashed categories
+            $trashedCategories = Category::orderBy('id','desc')->onlyTrashed()->paginate(10); // get all trashed categories
         }
         return view('category.trashedCategories', compact('trashedCategories'));
     }

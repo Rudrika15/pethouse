@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger("key_id");
             $table->bigInteger("package_id");
+            $table->string("status")->enum('status',['Active','InActive'])->default("Active");
             $table->timestamps();
         });
     }

@@ -32,11 +32,11 @@ class PackageController extends Controller
         if($request["query"] != "")
         {
             $q = $request["query"];
-            $packages = Package::onlyTrashed()->where('id',$q)->orWhere('name','like','%'.$q.'%')->orWhere('slug','like','%'.$q.'%')->orderBy("id","desc")->paginate(10);
+            $packages = Package::where('id',$q)->orWhere('name','like','%'.$q.'%')->orWhere('slug','like','%'.$q.'%')->onlyTrashed()->orderBy("id","desc")->paginate(10);
         }
         else
         {
-            $packages = Package::onlyTrashed()->orderBy("id","desc")->paginate(10);
+            $packages = Package::orderBy("id","desc")->onlyTrashed()->paginate(10);
         }
         return view("packages.trashedPackage",compact('packages'));
     }
@@ -61,16 +61,19 @@ class PackageController extends Controller
         $request->validate([
             'packageName'=>'required',
             'packagePrice'=>'required',
+            'packageDuration'=>'required'
         ],
         [
             'packageName.required' => "Please Enter Package Name",
             'packagePrice.required' =>"Please Enter Package Price",
+            'packageDuration.required'=>"Please Enter Package Duration",
         ]);
 
         $package = new Package();
         $package->name = $request->packageName;
         $package->slug = SlugService::createSlug(Package::class, 'slug', $request->packageName, ['unique' => true]);
         $package->price = $request->packagePrice;
+        $package->duration = $request->packageDuration;
         $package->description = $request->packageDescription;
         $package->save();
 
@@ -118,16 +121,19 @@ class PackageController extends Controller
         $request->validate([
             'packageName'=>'required',
             'packagePrice'=>'required',
+            'packageDuration' => 'required',
         ],
         [
             'packageName.required' => "Please Enter Package Name",
             'packagePrice.required' =>"Please Enter Package Price",
+            'packageDuration.required'=>"Please Enter Package Duration",
         ]);
 
         $package = Package::withTrashed()->find($id);
         $package->name = $request->packageName;
         $package->slug = SlugService::createSlug(Package::class, 'slug', $request->packageName, ['unique' => true]);
         $package->price = $request->packagePrice;
+        $package->duration = $request->packageDuration;
         $package->description = $request->packageDescription;
         $package->save();
 

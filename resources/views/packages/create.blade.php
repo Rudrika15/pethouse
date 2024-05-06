@@ -60,6 +60,19 @@
 
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input type="text"
+                                            class="form-control @error('packageDuration') is-invalid @enderror"
+                                            name="packageDuration" value="{{ old('packageDuration') }}" id="packageDuration"
+                                            placeholder="Package Duration">
+                                        <label for="packageDuration">Package Duration</label>
+                                        @error('packageDuration')
+                                            <div class='invalid-feedback'>{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <textarea class="form-control" name="packageDescription" placeholder="Address" id="packageDescription"

@@ -60,8 +60,7 @@
                                             <th>Name</th>
                                             <th>Slug</th>
                                             <th>Price (<i class="fa-solid fa-indian-rupee-sign"></i>)</th>
-
-                                            <th>Description</th>
+                                            <th>Duration</th>
                                             <th>Total Keys</th>
                                             <th>Actoin</th>
                                         </tr>
@@ -74,7 +73,7 @@
                                             <td>{{$package->slug}}</td>
                                             <td>{{$package->price}}</td>
 
-                                            <td>{{$package->description}}</td>
+                                            <td>{{$package->duration}}</td>
                                             <td>{{$package->keys->count()}}</td>
                                             <td>
                                                 <a href="{{route('package.softdelete',$package->id)}}"

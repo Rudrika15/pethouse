@@ -31,7 +31,7 @@ class PetDetailController extends Controller
         if($request["query"] != null)
         {
             $q = $request["query"];
-            $petDetails = PetDetail::onlyTrashed()->where('id',$q)->orWhere('name','like','%'.$q.'%')->orWhere('slug','like','%'.$q.'%')->orWhere('origin','like','%'.$q.'%')->orderBy("id","desc")->paginate(10);
+            $petDetails = PetDetail::where('id',$q)->orWhere('name','like','%'.$q.'%')->orWhere('slug','like','%'.$q.'%')->orWhere('origin','like','%'.$q.'%')->onlyTrashed()->orderBy("id","desc")->paginate(10);
         }
         else
         {

@@ -67,7 +67,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($petMasters as $petMaster)
-                                    @if($petMaster->trashed())
+                                    {{-- @if($petMaster->trashed()) --}}
 
                                         <tr>
                                             <td>{{ $petMaster->id }}</td>
@@ -87,7 +87,7 @@
                                                     class="btn btn-danger btn-shadow" title="Perment Delete"><i class="fa-solid fa-circle-xmark"></i></a>
                                             </td>
                                         </tr>
-                                        @endif
+                                        {{-- @endif --}}
                                     @endforeach
 
                                 </tbody>
