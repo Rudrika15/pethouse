@@ -31,7 +31,7 @@ class PetMasterController extends Controller
         if($request['query'] != null)
         {
             $q = $request["query"];
-            $petMasters = PetMaster::where('id',$q)->orWhere('name','like','%'.$q.'%')->orWhere('slug','like','%'.$q.'%')->orWhere("description","like","%".$q."%")->onlyTrashed()->orderBy('id','desc')->paginate(10);
+            $petMasters = PetMaster::where('id',$q)->orWhere('name','like','%'.$q.'%')->orWhere('slug','like','%'.$q.'%')->onlyTrashed()->orderBy('id','desc')->paginate(10);
         }
         else
         {
