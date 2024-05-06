@@ -28,7 +28,7 @@ class PackageKeyController extends Controller
         if($request["query"] != "")
         {
             $q = $request["query"];
-            $packageKeys = PackageKey::where('id',$q)->orWhere('key','like','%'.$q.'%')->orWhere('price',$q)->onlyTrashed()->orderBy("id","desc")->paginate(10);
+            $packageKeys = PackageKey::where('id',$q)->orWhere('key','like','%'.$q.'%')->orWhere('price',$q)->orderBy("id","desc")->onlyTrashed()->paginate(10);
         }
         else
         {

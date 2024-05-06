@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class PackageLinkKey extends Model
 {
     use HasFactory;
+
 }

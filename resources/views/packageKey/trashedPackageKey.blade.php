@@ -32,7 +32,7 @@
                                     <div class="row mt-3">
                                         <div class="col-10">
                                             <form action="{{route('packagekey.trashed')}}" name="search" method="get">
-                                            <input type="search" id="myInput" value="" name="query" class="form-control" placeholder="Search...." title="Type in a name">
+                                            <input type="search" id="myInput" value="{{request('query')}}" name="query" class="form-control" placeholder="Search...." title="Type in a name">
                                         </div>
                                         <div class="col-2">
                                             <button class="btn btn-dark btn-shadow" type="submit"><i class="fa fa-search"></i></button>

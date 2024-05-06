@@ -92,13 +92,15 @@
                                                 </div>
                                                 <div class="col-8">
                                                     {{$key->key}}
+
                                                 </div>
                                                 <div class="col-2">
                                                     <i class="fa-solid fa-indian-rupee-sign"></i> {{$key->price}}
                                                 </div>
+
                                                 <div class="col-1 justify-center text-center">
                                                     <div class="form-check form-switch">
-                                                        <input class="form-check-input packageKeys" type="checkbox" style="scale: 1.5;" name="updatekeys[]" value="{{$key->id}}" checked>
+                                                        <input class="form-check-input packageKeys" type="checkbox" style="scale: 1.5;" name="updatePackageLinkKeys[]" value="{{$key->packageLinkKey->first()->id}}" {{$key->packageLinkKey->first()->status == "Active" ? "checked" : ""}}>
                                                     </div>
                                                 </div>
 

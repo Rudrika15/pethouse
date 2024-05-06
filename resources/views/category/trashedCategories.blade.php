@@ -68,7 +68,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($trashedCategories as $category)
-                                    @if($category ->trashed())
+                                    @if($category->trashed())
 
                                         <tr>
                                             <td>{{ $category->id }}</td>

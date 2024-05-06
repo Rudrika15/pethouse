@@ -68,6 +68,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($packages as $package)
+                                        @if($package->trashed())
                                         <tr>
                                             <td>{{$package->id}}</td>
                                             <td>{{$package->name}}</td>
@@ -85,6 +86,7 @@
                                             </td>
 
                                         </tr>
+                                        @endif
                                         @endforeach
 
                                     </tbody>

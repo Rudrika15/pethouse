@@ -105,9 +105,10 @@ class PackageController extends Controller
      */
     public function edit($id)
     {
-        $package = Package::withTrashed()->with('keys')->find($id);
-        $packageKeyIds = array_column($package->keys->toArray(),'id');
-        $keys = PackageKey::whereNotIn('id',$packageKeyIds)->get();
+        $package = Package::withTrashed()->with('keys',function($q){$q->with("packageLinkKey")->orderBy("status");})->find($id);
+        $packageKeysIds = collect($package->keys)->pluck('id')->toArray(); //get ID of package keys
+        $keys = PackageKey::whereNotIn('id',$packageKeysIds)->get();
+
         return view("packages.update",compact('package','keys'));
 
     }
@@ -137,18 +138,21 @@ class PackageController extends Controller
         $package->description = $request->packageDescription;
         $package->save();
 
-        PackageLinkKey::whereIn('package_id',[$id])->delete();
-
-        if($request->updatekeys)
+        // return $request->updatePackageLinkKeys;
+        PackageLinkKey::where('package_id','=',$id)->update(['status'=>'InActive']);
+        if($request->updatePackageLinkKeys)
         {
+            // $id = "";
             // return $request->all();
-            foreach($request->updatekeys as $packageKey)
+            foreach($request->updatePackageLinkKeys as $updatePackageLinkKeys)
             {
-                $key = new PackageLinkKey();
-                $key->package_id = $package->id;
-                $key->key_id = $packageKey;
-                $key->save();
+                // $id .= $updatePackageLinkKeys;
+                $package_link_key = PackageLinkKey::find($updatePackageLinkKeys);
+                $package_link_key->status = "Active";
+                $package_link_key->save();
             }
+
+            // return $id;
         }
 
         if($request->newkeys)
