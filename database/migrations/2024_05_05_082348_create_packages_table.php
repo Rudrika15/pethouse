@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("slug")->unique();
             $table->longText("description")->nullable();
             $table->string("price");
+            $table->string("duration")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
