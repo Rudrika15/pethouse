@@ -66,7 +66,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($petMasters as $petMaster)
+                                    @forelse ($petMasters as $petMaster)
                                     @if($petMaster->trashed())
                                         <tr>
                                             <td>{{ $petMaster->id }}</td>
@@ -87,7 +87,13 @@
                                             </td>
                                         </tr>
                                         @endif
-                                    @endforeach
+                                        @empty
+                                        <tr>
+                                            <th colspan="7">
+                                                <h2 class="text text-danger">🙅 Record Not Available</h2>
+                                            </th>
+                                        </tr>
+                                    @endforelse
 
                                 </tbody>
                             </table>

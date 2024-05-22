@@ -24,7 +24,7 @@ class Package extends Model
         return $this->belongsToMany(PackageKey::class, 'package_link_keys', 'package_id', 'key_id');
     }
 
-    
+
 
     // public function keyid()
     // {

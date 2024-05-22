@@ -67,7 +67,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($packages as $package)
+                                        @forelse ($packages as $package)
                                         @if($package->trashed())
                                         <tr>
                                             <td>{{$package->id}}</td>
@@ -87,7 +87,13 @@
 
                                         </tr>
                                         @endif
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <th colspan="7">
+                                                <h2 class="text text-danger">🙅 Record Not Available</h2>
+                                            </th>
+                                        </tr>
+                                        @endforelse
 
                                     </tbody>
 

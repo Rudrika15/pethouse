@@ -64,7 +64,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($petMasters as $petMaster)
+                                    @forelse ($petMasters as $petMaster)
                                         <tr>
                                             <td>{{ $petMaster->id }}</td>
                                             <td>
@@ -88,7 +88,13 @@
 
                                             </td>
                                         </tr>
-                                    @endforeach
+                                        @empty
+                                        <tr>
+                                            <th colspan="7">
+                                                <h2 class="text text-danger">🙅 Record Not Available</h2>
+                                            </th>
+                                        </tr>
+                                    @endforelse
 
                                 </tbody>
 

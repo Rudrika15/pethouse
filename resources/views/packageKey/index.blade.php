@@ -72,7 +72,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($packageKeys as $packageKey)
+                                        @forelse ($packageKeys as $packageKey)
                                         <tr>
                                             <td>{{$packageKey->id}}</td>
                                             <td>
@@ -94,7 +94,13 @@
                                             </td>
 
                                         </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <th colspan="6">
+                                                <h2 class="text text-danger">🙅 Record Not Available</h2>
+                                            </th>
+                                        </tr>
+                                        @endforelse
 
                                     </tbody>
 

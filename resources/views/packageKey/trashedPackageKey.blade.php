@@ -65,7 +65,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($packageKeys as $packageKey)
+                                    @forelse ($packageKeys as $packageKey)
                                         @if($packageKey->trashed())
 
                                         <tr>
@@ -86,7 +86,13 @@
                                             </td>
                                         </tr>
                                         @endif
-                                    @endforeach
+                                        @empty
+                                        <tr>
+                                            <th colspan="6">
+                                                <h2 class="text text-danger">🙅 Record Not Available</h2>
+                                            </th>
+                                        </tr>
+                                    @endforelse
 
                                 </tbody>
                             </table>

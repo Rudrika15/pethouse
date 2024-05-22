@@ -65,7 +65,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $category)
+                                    @forelse ($categories as $category)
                                         <tr>
                                             <td>{{ $category->id }}</td>
                                             <td>
@@ -87,7 +87,14 @@
 
                                             </td>
                                         </tr>
-                                    @endforeach
+                                        @empty
+                                            <tr>
+                                                <th colspan="7">
+                                                    <h2 class="text text-danger">🙅 Record Not Available</h2>
+                                                </th>
+                                            </tr>
+
+                                    @endforelse
 
                                 </tbody>
 
