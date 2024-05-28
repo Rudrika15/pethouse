@@ -169,6 +169,11 @@ class CategoryController extends Controller
     {
         $category = Category::withTrashed()->find($id);
         $category->forceDelete();
+        // $img = public_path('categoryImage\\'.$category->image);
+        // if(!empty($img) && file_exists($img) && !is_dir($img) && is_file($img))
+        // {
+        //     unlink($img);
+        // }
         return redirect()->back();
     }
 

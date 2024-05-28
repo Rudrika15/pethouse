@@ -47,8 +47,8 @@
 
                             </div>
                             <!-- Table with stripped rows -->
-                            <div class=" table-responsive mt-3">
-                            <table class="table text-center align-middle table-striped" >
+                            <div class=" table-responsive mt-3" >
+                            <table class="table text-center align-middle table-striped border border-1" >
                                 <thead>
                                     <tr>
                                         <th>
@@ -67,7 +67,7 @@
                                 <tbody>
                                     @forelse ($categories as $category)
                                         <tr>
-                                            <td>{{ $category->id }}</td>
+                                            <td>{{ $category->id }}    </td>
                                             <td>
                                                 <img src="{{asset('categoryImage/'.$category->image)}}" alt="{{$category->name}}" class=" img-thumbnail object-fit-cover object-fit-fill rounded-circle" style="max-height: 60px;height: 60px; max-width: 60px;width:60px;" />
                                             </td>
@@ -87,6 +87,7 @@
 
                                             </td>
                                         </tr>
+
                                         @empty
                                             <tr>
                                                 <th colspan="7">

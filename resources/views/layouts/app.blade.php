@@ -249,8 +249,10 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
                     href="#">
-                    <i class="fa-solid fa-layer-group"></i><span>Category</span><i
-                        class="fa-solid fa-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-bars-progress"></i>
+                    {{-- <i class="fa-solid fa-layer-group"></i> --}}
+                    <span>Category</span>
+                    <i class="fa-solid fa-chevron-down ms-auto"></i>
                 </a>
 
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -338,6 +340,29 @@
                     </li>
                 </ul>
             </li><!-- End Components Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#service-provider-nav" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="fa-solid fa-people-roof"></i>
+                    <span>Service Provider</span><i
+                        class="fa-solid fa-chevron-down ms-auto"></i>
+                </a>
+
+                <ul id="service-provider-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="{{route('service.provider.index')}}">
+                            <i class="fa-solid fa-eye" style="font-size:12px;"></i><span>View</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{route('service.provider.create')}}">
+                            <i class="fa-solid fa-plus" style="font-size:12px;"></i><span>Add</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
             {{-- End Blank Page Nav --> --}}
 
         </ul>
@@ -352,14 +377,14 @@
 
 
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
+    {{-- <footer id="footer" class="footer">
         <div class="copyright">
             &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits">
             Designed by <a href="">Bootstrap</a>
         </div>
-    </footer><!-- End Footer -->
+    </footer><!-- End Footer --> --}}
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>

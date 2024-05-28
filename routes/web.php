@@ -9,6 +9,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageKeyController;
 use App\Http\Controllers\PetDetailController;
 use App\Http\Controllers\PetMasterController;
+use App\Http\Controllers\ServiceProviderController;
 use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Package;
@@ -53,6 +54,7 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 });
 
 
+//category (service)
 Route::get('category/create',[CategoryController::class,'create'])->name('category.create');
 Route::post('category/store',[CategoryController::class,'store'])->name('category.store');
 Route::get('category/index',[CategoryController::class,'index'])->name('category.index');
@@ -64,6 +66,8 @@ Route::get("category/destroy/{id}",[CategoryController::class,'destroy'])->name(
 Route::get("/category/trashed",[CategoryController::class,'trashed'])->name('category.trashed');
 Route::get("/category/tree",[CategoryController::class,'tree'])->name('category.tree');
 
+
+//petmaster
 Route::get('petmaster/create',[PetMasterController::class,'create'])->name('petmaster.create');
 Route::get('petmaster/index',[PetMasterController::class,'index'])->name('petmaster.index');
 Route::post('petmaster/store',[PetMasterController::class,'store'])->name('petmaster.store');
@@ -77,7 +81,7 @@ Route::post("petmaster/update/{id}",[PetMasterController::class,'update'])->name
 
 
 
-
+//pets
 Route::get("pets/index",[PetDetailController::class,'index'])->name("pets.index");
 Route::get("pets/create",[PetDetailController::class,'create'])->name('pets.create');
 Route::post("pets/store",[PetDetailController::class,'store'])->name('pets.store');
@@ -90,10 +94,12 @@ Route::get("pets/destroy/{id}",[PetDetailController::class,'destroy'])->name("pe
 Route::get("pets/show/{id}",[PetDetailController::class,'show'])->name("pets.show");
 Route::get("pets/gallery/{id}",[PetDetailController::class,'gallery'])->name("pets.gallery");
 
+//pet gallery
 Route::get("gallery/destroy/{id}",[GalleryController::class,'destroy'])->name("gallery.destroy");
 Route::post("gallery/update",[GalleryController::class,'update'])->name("galler.update");
 Route::post("gallery/store",[GalleryController::class,'store'])->name("gallery.store");
 
+//package keys
 Route::get("packagekey/index",[PackageKeyController::class,'index'])->name("packagekey.index");
 Route::get("packagekey/trashed",[PackageKeyController::class,'trashed'])->name("packagekey.trashed");
 Route::post('packagekey/store', [PackageKeyController::class,'store'])->name("packagekey.store");
@@ -102,6 +108,8 @@ Route::get("packagekey/restore/{id}",[PackageKeyController::class,'restore'])->n
 Route::get("packagekey/destroy/{id}",[PackageKeyController::class,'destroy'])->name("packagekey.destroy");
 Route::post("packagekey/update",[PackageKeyController::class,"update"])->name("packagekey.update");
 
+
+//package
 
 Route::get("package/create",[PackageController::class,"create"])->name("package.create");
 Route::post("package/store",[PackageController::class,"store"])->name("package.store");
@@ -112,3 +120,9 @@ Route::get("package/destroy/{id}",[PackageController::class,"destroy"])->name("p
 Route::get("package/restore/{id}",[PackageController::class,"restore"])->name("package.restore");
 Route::get("package/edit/{id}",[PackageController::class,"edit"])->name('package.edit');
 Route::post("package/update/{id}",[PackageController::class,"update"])->name("package.update");
+
+
+//service provider
+Route::get('service-provider/index',[ServiceProviderController::class,'index'])->name('service.provider.index');
+Route::get('service-provider/create',[ServiceProviderController::class,'create'])->name('service.provider.create');
+Route::post('service-provider/store',[ServiceProviderController::class,'store'])->name('service.provider.store');

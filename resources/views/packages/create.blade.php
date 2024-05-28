@@ -86,6 +86,7 @@
                                     <h3 class="card-title">Add Package Keys</h3>
                                     <div class="mb-3">
                                         <div class="card-body p-0">
+
                                             @foreach ($keys as $key)
                                                 <div
                                                     class="row m-2 p-2 packageKeysBox-style d-flex align-items-center card-3d-shadow-radius">
