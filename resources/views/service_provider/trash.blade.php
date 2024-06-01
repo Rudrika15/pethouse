@@ -34,7 +34,7 @@
                                         <div class="col-lg-2 col-md-3 col-sm-4">
                                             <button class="btn btn-dark btn-shadow" type="submit"><i
                                                     class="fa fa-search"></i></button>
-                                            <a class="btn btn-primary btn-shadow" href="{{route('service.provider.index')}}"><i
+                                            <a class="btn btn-primary btn-shadow" href="{{route('service.provider.trash')}}"><i
                                                     class="fa-solid fa-arrows-rotate"></i></a>
 
                                             </form>
@@ -42,8 +42,8 @@
                                     </div>
                                 </div>
                                 <div class='col-lg-2 col-md-2 col-sm-3'>
-                                    <a href="{{route('service.provider.trash')}}"
-                                        class="btn btn-success mt-3 float-end btn-shadow">Go To Trash</a>
+                                    <a href="{{route('service.provider.index')}}"
+                                        class="btn btn-success mt-3 float-end btn-shadow">Available Service Provider</a>
 
                                 </div>
 
@@ -68,6 +68,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($serviceProviders as $serviceProvider)
+                                            @if($serviceProvider->trashed())
                                             <tr>
                                                 <td>
                                                     {{$serviceProvider->id}}
@@ -99,7 +100,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <a href="{{route('service.provider.gallery',$serviceProvider->id)}}" class="btn btn-secondary position-relative btn-shadow">
+                                                    <a href="" class="btn btn-secondary position-relative btn-shadow">
                                                         <i class="fa-solid fa-images"></i>
                                                         <span class="position-absolute top-0 start-100 btn-shadow translate-middle badge rounded-pill bg-danger">
                                                             {{$serviceProvider->gallery->count()}}
@@ -120,15 +121,16 @@
 
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('service.provider.softDelete',$serviceProvider->id)}}"
-                                                        class="btn btn-danger btn-shadow"><i
-                                                            class="fa-solid fa-trash"></i></i></a>
-                                                    <a href=""
-                                                        class="btn btn-warning btn-shadow"><i
-                                                            class="fa-solid fa-pencil"></i></a>
+                                                    <a href="{{route('service.provider.restore',$serviceProvider->id)}}"
+                                                        class="btn btn-success btn-shadow" title="Restore"><i
+                                                            class="fa-solid fa-trash-can-arrow-up"></i></a>
+                                                    <a href="{{route('service.provider.destroy',$serviceProvider->id)}}"
+                                                        class="btn btn-danger btn-shadow" title="Perment Delete"><i
+                                                            class="fa-solid fa-circle-xmark"></i></a>
 
                                                 </td>
                                             </tr>
+                                            @endif
                                             @empty
                                         <tr>
                                             <th colspan="9">
@@ -151,15 +153,7 @@
                 </div>
             </div>
         </section>
-        <script>
-                //check box
-                $(document).on("click", ".service-card", function() {
-                    $(this).toggleClass("service-card-success")
-                    $(this).find("input[type='checkbox']").prop("checked", function(_, oldProp) {
-                        return !oldProp; // Toggle the checked state
-                    });
-                })
-        </script>
+
     </main><!-- End #main -->
 
 

@@ -10,10 +10,15 @@ use App\Http\Controllers\PackageKeyController;
 use App\Http\Controllers\PetDetailController;
 use App\Http\Controllers\PetMasterController;
 use App\Http\Controllers\ServiceProviderController;
+use App\Http\Controllers\ServiceProviderFaqsController;
+use App\Http\Controllers\ServiceProviderGalleryController;
+use App\Http\Controllers\ServiceProviderServiceController;
 use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Package;
 use App\Models\PetDetail;
+use App\Models\ServiceProvider;
+use App\Models\ServiceProviderService;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -124,5 +129,19 @@ Route::post("package/update/{id}",[PackageController::class,"update"])->name("pa
 
 //service provider
 Route::get('service-provider/index',[ServiceProviderController::class,'index'])->name('service.provider.index');
+Route::get('service-provider/trash',[ServiceProviderController::class,'trash'])->name('service.provider.trash');
 Route::get('service-provider/create',[ServiceProviderController::class,'create'])->name('service.provider.create');
 Route::post('service-provider/store',[ServiceProviderController::class,'store'])->name('service.provider.store');
+Route::get('service-provider/softDelete/{id}',[ServiceProviderController::class,'softDelete'])->name('service.provider.softDelete');
+Route::get('service-provider/destroy/{id}',[ServiceProviderController::class,'destroy'])->name('service.provider.destroy');
+Route::get('service-provider/restore/{id}',[ServiceProviderController::class,'restore'])->name('service.provider.restore');
+
+Route::get('service-provider/{id}/faqs',[ServiceProviderFaqsController::class,'index'])->name('service.provider.faq.index');
+Route::post("service-provider/{id}/faqs/save",[ServiceProviderFaqsController::class,'store'])->name('servide.provider.faq.save');
+Route::get('service-provider/faqs/{id}/delete',[ServiceProviderFaqsController::class,'destroy'])->name('service.provider.faq.destroy');
+
+Route::get("service-provider/{id}/services",[ServiceProviderServiceController::class,'index'])->name('service.provider.service.index');
+Route::post("service-provider/{id}/services/save",[ServiceProviderServiceController::class,'store'])->name('service.provider.service.save');
+Route::get("service-provider/{id}/gallery",[ServiceProviderGalleryController::class,'index'])->name('service.provider.gallery');
+Route::get("service-provider/gallery/{id}/delete",[ServiceProviderGalleryController::class,'destroy'])->name('service.provider.gallery.destroy');
+Route::post("service-provider/{id}/gallery/store",[ServiceProviderGalleryController::class,'store'])->name('service.provider.gallery.store');

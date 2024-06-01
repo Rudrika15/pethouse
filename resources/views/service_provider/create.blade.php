@@ -1,8 +1,14 @@
 @extends('layouts.app')
 @section('title', 'Add Service Provider')
 @section('content')
-
-
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js" integrity="sha512-9e9rr82F9BPzG81+6UrwWLFj8ZLf59jnuIA/tIf8dEGoQVu7l5qvr02G/BiAabsFOYrIUTMslVN+iDYuszftVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css" integrity="sha512-7uSoC3grlnRktCWoO4LjHMjotq8gf9XDFQerPuaph+cqR7JC9XKGdvN+UwZMC14aAaBDItdRj3DcSDs4kMWUgg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
+  type="text/css"
+/>
     <style>
         .select {
             background-color: #012970;
@@ -10,6 +16,7 @@
             width: 40px;
             height: 40px;
             display: inline-block;
+            cursor: pointer;
         }
 
         .unselect {
@@ -19,7 +26,7 @@
             width: 40px;
             height: 40px;
             display: inline-block;
-
+            cursor: pointer;
         }
 
         .select-error {
@@ -30,6 +37,8 @@
             width: 40px;
             height: 40px;
             display: inline-block;
+            cursor: pointer;
+
         }
 
         .select-success {
@@ -40,6 +49,8 @@
             width: 40px;
             height: 40px;
             display: inline-block;
+            cursor: pointer;
+
         }
 
         .dropbox-style {
@@ -72,7 +83,7 @@
 
         #dropzone.dropped {
             /* background: #222;
-                    border: 10px solid #444; */
+                        border: 10px solid #444; */
         }
 
         .dropzone-title {
@@ -142,6 +153,24 @@
             width: 50px;
             height: 50px;
         }
+
+        .faq-card {
+            background: #D6EAF8;
+            color: #012970;
+        }
+
+        .remove-faq {
+            cursor: pointer;
+            background: red;
+            display: inline;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 30px;
+            height: 30px;
+            align-content: center;
+            text-align: center;
+        }
     </style>
     <main id="main" class="main">
 
@@ -157,11 +186,15 @@
         </div><!-- End Page Title -->
 
         <section class="section">
-
-
-
-
-
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2">
@@ -170,24 +203,24 @@
                             <h3 class="card-title text-center">Steps</h3>
                             <div class="row">
                                 <div class="col-md-12 text-center py-2">
-                                    <span class="select rounded-circle position-relative tab-indicator" iconIndex="1"><span
+                                    <span class="select rounded-circle position-relative tab-indicator" iconIndex="1" onclick="currentTab(1)"><span
                                             style="position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);">1</span></span>
                                 </div>
                                 <div class="col-md-12 text-center py-2">
                                     <span class="unselect position-relative rounded-circle tab-indicator"
-                                        iconIndex="2"><span
+                                        iconIndex="2" onclick="currentTab(2)"><span
                                             style="position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);">2</span></span>
 
                                 </div>
                                 <div class="col-md-12 text-center py-2">
                                     <span class="unselect position-relative rounded-circle tab-indicator"
-                                        iconIndex="3"><span
+                                        iconIndex="3" onclick="currentTab(3)"><span
                                             style="position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);">3</span></span>
 
                                 </div>
                                 <div class="col-md-12 text-center py-2">
                                     <span class="unselect position-relative rounded-circle tab-indicator"
-                                        iconIndex="4"><span
+                                        iconIndex="4" onclick="currentTab(4)"><span
                                             style="position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);">4</span></span>
 
                                 </div>
@@ -196,7 +229,7 @@
                     </div>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-10">
-                    <form  action="{{route('service.provider.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('service.provider.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="tab" index="1">
@@ -207,42 +240,68 @@
                                     <div class="row g-3">
                                         <div class="col-md-12">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                    placeholder="Enter Name">
+                                                <input type="text"
+                                                    class="form-control @if ($errors->firsttab->first('name')) is-invalid @endif"
+                                                    id="name" name="name" placeholder="Enter Name"
+                                                    value="{{ old('name') }}">
                                                 <label for="name">Name</label>
                                             </div>
+                                            @if ($errors->firsttab->first('name'))
+                                                <span class='text-danger'>{{ $errors->firsttab->first('name') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="email" class="form-control" id="useremail" name="email"
+                                                <input type="useremail"
+                                                    class="form-control @if ($errors->firsttab->first('useremail')) is-invalid @endif"
+                                                    value="{{ old('useremail') }}" id="useremail" name="useremail"
                                                     placeholder="Enter Email">
-                                                <label for="email">Email</label>
+                                                <label for="useremail">Email</label>
                                             </div>
+                                            @if ($errors->firsttab->first('useremail'))
+                                                <span class='text-danger'>{{ $errors->firsttab->first('useremail') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" id="password" name="password"
+                                                <input type="password"
+                                                    class="form-control @if ($errors->firsttab->first('password')) is-invalid @endif"
+                                                    value="{{ old('password') }}" id="password" name="password"
                                                     placeholder="Password">
                                                 <label for="password">Password</label>
                                             </div>
+                                            @if ($errors->firsttab->first('password'))
+                                                <span class='text-danger'>{{ $errors->firsttab->first('password') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input class="form-control" id="phone" name="phone"
+                                                <input
+                                                    class="form-control @if ($errors->firsttab->first('phone')) is-invalid @endif"
+                                                    id="phone" value="{{ old('phone') }}" name="phone"
                                                     placeholder="Enter Phone No.">
                                                 <label for="phone">Phone No.</label>
+
                                             </div>
+                                            @if ($errors->firsttab->first('phone'))
+                                                <span class='text-danger'>{{ $errors->firsttab->first('phone') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input class="form-control" id="whatsapp" name="whatsapp"
-                                                    placeholder="whatsapp">
+                                                <input
+                                                    class="form-control @if ($errors->firsttab->first('whatsapp')) is-invalid @endif"
+                                                    id="whatsapp" name="whatsapp" placeholder="whatsapp"
+                                                    value="{{ old('whatsapp') }}">
                                                 <label for="whatsapp">Whatsapp No.</label>
                                             </div>
+                                            @if ($errors->firsttab->first('whatsapp'))
+                                                <span class='text-danger'>{{ $errors->firsttab->first('whatsapp') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-floating">
-                                                <textarea class="form-control" placeholder="description" name="description" id="description" style="height: 70px;"></textarea>
+                                                <textarea class="form-control" placeholder="description" name="description" id="description" style="height: 70px;">{{ old('description') }}</textarea>
                                                 <label for="description">Description</label>
                                             </div>
                                         </div>
@@ -255,28 +314,28 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-floating">
-                                                <textarea class="form-control" placeholder="Address" name="address" id="address" style="height: 70px;"></textarea>
+                                                <textarea class="form-control" placeholder="Address" name="address" id="address" style="height: 70px;">{{ old('address') }}</textarea>
                                                 <label for="address">Address</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input class="form-control" id="lat" name="lat"
-                                                    placeholder="Latitude">
+                                                    placeholder="Latitude" value="{{ old('lat') }}">
                                                 <label for="lat">Latitude</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input class="form-control" id="lng" name="lng"
-                                                    placeholder="Longitude">
+                                                    placeholder="Longitude" value="{{ old('lng') }}">
                                                 <label for="lng">Longitude</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input class="form-control" id="facebook_link" name="facebook_link"
-                                                    placeholder="facebook_link">
+                                                    placeholder="facebook_link" value="{{ old('facebook_link') }}">
                                                 <label for="facebook_link">Facebook</label>
                                             </div>
                                         </div>
@@ -284,7 +343,7 @@
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input class="form-control" id="instagram_link" name="instagram_link"
-                                                    placeholder="instagram_link">
+                                                    placeholder="instagram_link" value="{{old('instagram_link')}}">
                                                 <label for="instagram_link">Instagram</label>
                                             </div>
                                         </div>
@@ -292,7 +351,7 @@
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input class="form-control" id="youtube_link" name="youtube_link"
-                                                    placeholder="youtube_link">
+                                                    placeholder="youtube_link" value="{{old('youtube_link')}}">
                                                 <label for="youtube_link">Youtube</label>
                                             </div>
                                         </div>
@@ -300,7 +359,7 @@
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input class="form-control" id="twitter_link" name="twitter_link"
-                                                    placeholder="twitter_link">
+                                                    placeholder="twitter_link" value="{{old('twitter_link')}}">
                                                 <label for="twitter_link">Twitter</label>
                                             </div>
                                         </div>
@@ -324,23 +383,24 @@
                                 <div class="card-body">
                                     <h3 class="card-title">Select Services</h3>
 
-                                    <div class="row d-flex mx-0 justify-content-around " >
-
+                                    <div class="row d-flex mx-0 justify-content-around ">
                                         {{-- all check box id must be different --}}
                                         @foreach ($services as $service)
-                                        <div class="col-lg-2 service-card text-center btn-shadow service-card-danger">
-                                            <img src="{{ asset('categoryImage\\'.$service->image) }}" alt=""
-                                                class="object-fit-contain service-card-image rounded-circle img-thumbnail my-2" />
-                                            <br>
-                                            <span class="block">{{$service->name}}</span>
+                                            <div class="col-lg-2 service-card text-center btn-shadow service-card-danger {{!empty(old("services")) && in_array($service->id,old("services"))  ? "service-card-success" : "" }}">
+                                                <img src="{{ asset('categoryImage\\' . $service->image) }}" alt=""
+                                                    class="object-fit-contain service-card-image rounded-circle img-thumbnail my-2" />
+                                                <br>
+                                                <span class="block">{{ $service->name }}</span>
 
-                                            <div class="checkbox-wrapper-26 mt-3">
-                                                <input type="checkbox" class="service-check" value="{{$service->id}}" name="services[]" id="service{{$service->id}}">
-                                                <label for="_checkbox-26">
-                                                    <div class="tick_mark"></div>
-                                                </label>
+                                                <div class="checkbox-wrapper-26 mt-3">
+                                                    <input type="checkbox" class="service-check"
+                                                        value="{{ $service->id }}" name="services[]"
+                                                        id="service{{ $service->id }}" {{!empty(old("services")) && in_array($service->id,old("services"))  ? "checked" : "" }}>
+                                                    <label for="_checkbox-26">
+                                                        <div class="tick_mark"></div>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endforeach
 
 
@@ -366,15 +426,16 @@
                             <div class="card card-3d-shadow-radius">
                                 <div class="card-body">
                                     <h3 class="card-title">Gallery</h3>
-                                    <div class="row g-3">
+                                    <div class="row g-3 px-3">
                                         <div class="col-lg-12 dropbox-style p-2" id="dropzone">
 
                                             <span class="dropzone-title">Drop images here or click to upload</span>
                                             <div></div>
-                                            <input name="gallery[]" type="file" accept="image/png,image/jpeg,image/gif,image/jpg"
-                                                multiple />
+                                            <input name="gallery[]" type="file"
+                                                accept="image/png,image/jpeg,image/gif,image/jpg" multiple />
                                         </div>
                                     </div>
+
                                     <div class="row mt-3">
                                         <div class="col-md-6 justify-content-start d-flex">
                                             <button class="btn btn-warning prevTab" type="button">Back</button>
@@ -395,7 +456,74 @@
 
                             <div class="card card-3d-shadow-radius">
                                 <div class="card-body">
-                                    <h3 class="card-title">FAQ</h3>
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <h3 class="card-title">FAQs</h3>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button type="button" class="btn btn-primary mt-3 float-end add-faq"><i class="fa-solid fa-plus"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row px-3 main-faq-box">
+                                        <div class="col-lg-12 p-0 faq-box ">
+                                            <div class="card m-0 btn-shadow faq-card">
+
+                                                <div class="card-body mt-3">
+                                                    {{-- <span class="remove-faq rounded-circle btn-shadow">
+                                                        <i class="fa fa-times text-light"></i>
+                                                    </span> --}}
+
+                                                    <div class="row mb-3">
+                                                        <label for="que"
+                                                            class="col-sm-2 col-form-label">Question</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="faq[que][]" value="{{old('faq')['que'][0] ?? ""}}" class="form-control"
+                                                                id="que">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <label for="ans"
+                                                            class="col-sm-2 col-form-label">Answer</label>
+                                                        <div class="col-sm-10">
+                                                            <textarea name="faq[ans][]" class="form-control" id="ans">{{old('faq')['ans'][0] ?? ""}}</textarea>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (!empty(old('faq')) && count(old('faq')['ans']) > 2)
+                                        @for($i=1;$i<count(old('faq')['que']);$i++)
+                                        <div class="col-lg-12 p-0 faq-box mt-4 ">
+                                            <div class="card m-0 btn-shadow faq-card">
+
+                                                <div class="card-body mt-4">
+                                                    <span class="remove-faq rounded-circle btn-shadow">
+                                                        <i class="fa fa-times text-light"></i>
+                                                    </span>
+
+                                                    <div class="row mb-3">
+                                                      <label class="col-sm-2 col-form-label">Question</label>
+                                                      <div class="col-sm-10">
+                                                        <input type="text" name="faq[que][]" value="{{old('faq')['que'][$i] ?? ""}}" class="form-control">
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                      <label class="col-sm-2 col-form-label">Answer</label>
+                                                      <div class="col-sm-10">
+                                                        <textarea name="faq[ans][]" class="form-control">{{old('faq')['ans'][$i] ?? ""}}</textarea>
+                                                      </div>
+                                                    </div>
+
+                                                </div>
+                                              </div>
+                                        </div>
+                                        @endfor
+                                        @endif
+                                    </div>
                                     <div class="row mt-3">
                                         <div class="col-md-6 justify-content-start d-flex">
                                             <button class="btn btn-warning prevTab" type="button">Back</button>
@@ -419,13 +547,29 @@
 
         </section>
 
-        <script>
+        <script type="text/javascript" lang="text/javascript">
+            function currentTab(index) {
+                // Hide all tabs
+                $(".tab").hide();
+                // Show the tab with the given index
+                $(".tab[index|='" + index + "']").fadeIn();
+
+                //remove select from previout tab step span and add unselect
+                $(".tab-indicator").removeClass("select");
+                $(".tab-indicator").addClass("unselect");
+
+                //add select to current tab step span and remove unselect
+                $("span[iconIndex|='" + index + "']").removeClass("unselect");
+                $("span[iconIndex|='" + index + "']").addClass("select");
+
+                localStorage.setItem("currentTab", index);
+            }
             $(document).ready(function() {
 
-                var cTab = localStorage.getItem("currentTab");
-                if (cTab && cTab != null) {
-                    currentTab(cTab);
-                }
+                // var cTab = localStorage.getItem("currentTab");
+                // if (cTab && cTab != null) {
+                //     currentTab(cTab);
+                // }
 
 
                 $(document).on("click", ".nextTab", function() {
@@ -444,22 +588,7 @@
                     currentTab(prevTabIndex);
                 });
 
-                function currentTab(index) {
-                    // Hide all tabs
-                    $(".tab").hide();
-                    // Show the tab with the given index
-                    $(".tab[index|='" + index + "']").fadeIn();
 
-                    //remove select from previout tab step span and add unselect
-                    $(".tab-indicator").removeClass("select");
-                    $(".tab-indicator").addClass("unselect");
-
-                    //add select to current tab step span and remove unselect
-                    $("span[iconIndex|='" + index + "']").removeClass("unselect");
-                    $("span[iconIndex|='" + index + "']").addClass("select");
-
-                    localStorage.setItem("currentTab", index);
-                }
 
 
                 //dropzone start
@@ -516,8 +645,51 @@
                 })
 
 
+
+                //faq card remove
+                $(document).on("click", ".remove-faq", function() {
+                    $(this).parents(".faq-box").remove();
+                })
+
+                $(document).on("click", ".add-faq", function() {
+
+                    var faqbox = ` <div class="col-lg-12 p-0 faq-box mt-4 ">
+                                            <div class="card m-0 btn-shadow faq-card">
+
+                                                <div class="card-body mt-4">
+                                                    <span class="remove-faq rounded-circle btn-shadow">
+                                                        <i class="fa fa-times text-light"></i>
+                                                    </span>
+
+                                                    <div class="row mb-3">
+                                                      <label class="col-sm-2 col-form-label">Question</label>
+                                                      <div class="col-sm-10">
+                                                        <input type="text" name="faq[que][]" class="form-control">
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                      <label class="col-sm-2 col-form-label">Answer</label>
+                                                      <div class="col-sm-10">
+                                                        <textarea name="faq[ans][]" class="form-control"></textarea>
+                                                      </div>
+                                                    </div>
+
+                                                </div>
+                                              </div>
+                                        </div> `;
+                    $(".main-faq-box").append(faqbox);
+                })
             });
         </script>
+
+        @if (count($errors->firsttab))
+            <script>
+                $(document).ready(function() {
+                    currentTab(1)
+                })
+            </script>
+        @endif
     </main><!-- End #main -->
 
 
