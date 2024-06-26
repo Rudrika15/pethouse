@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', 'Service Providers')
+@section('title', 'Trashed Service Providers')
 @section('content')
 
 
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>All Service Providers</h1>
+            <h1>Trashed Service Providers</h1>
             {{-- <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -56,6 +56,8 @@
                                             <th>
                                                 ID
                                             </th>
+                                            <th>Image</th>
+
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone No.</th>
@@ -73,7 +75,10 @@
                                                 <td>
                                                     {{$serviceProvider->id}}
                                                 </td>
+                                                <td>
 
+                                                    <img src="{{asset('service_provider/'.$serviceProvider->image) }}" alt="{{$serviceProvider->name}}" class=" img-thumbnail object-fit-cover rounded-circle" style="max-height: 60px;height: 60px; max-width: 60px;width:60px;" />
+                                                </td>
                                                 <td>{{ $serviceProvider->name }}</td>
                                                 <td>{{ $serviceProvider->email }}</td>
 
@@ -100,7 +105,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <a href="" class="btn btn-secondary position-relative btn-shadow">
+                                                    <a href="{{route('service.provider.gallery',$serviceProvider->id)}}" class="btn btn-secondary position-relative btn-shadow">
                                                         <i class="fa-solid fa-images"></i>
                                                         <span class="position-absolute top-0 start-100 btn-shadow translate-middle badge rounded-pill bg-danger">
                                                             {{$serviceProvider->gallery->count()}}
@@ -133,7 +138,7 @@
                                             @endif
                                             @empty
                                         <tr>
-                                            <th colspan="9">
+                                            <th colspan="10">
                                                 <h2 class="text text-danger">🙅 Record Not Available</h2>
                                             </th>
                                         </tr>
@@ -144,7 +149,7 @@
                                 </table>
                             </div>
                             <!-- End Table with stripped rows -->
-                            <div class="d-flex justify-content-center">
+                            <div>
                                 {!! $serviceProviders->links() !!}
                             </div>
                         </div>

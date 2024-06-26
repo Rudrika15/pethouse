@@ -13,7 +13,7 @@ class ServiceProviderGalleryController extends Controller
      */
     public function index($id)
     {
-        $serviceProvider = ServiceProvider::with("gallery")->find($id);
+        $serviceProvider = ServiceProvider::withTrashed()->with("gallery")->find($id);
         return view("service_provider.gallery",compact('serviceProvider'));
     }
 

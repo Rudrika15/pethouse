@@ -87,11 +87,16 @@
                                                     {{ $petDetail->petMaster->name }}
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('pets.gallery',$petDetail->id)}}" class="btn btn-primary"><i
-                                                            class="fa-solid fa-images"></i></a>
+                                                    <a href="{{route('pets.gallery',$petDetail->id)}}" class="btn btn-primary position-relative btn-shadow"><i
+                                                            class="fa-solid fa-images"></i>
+                                                            <span class="position-absolute top-0 start-100 btn-shadow translate-middle badge rounded-pill bg-danger">
+                                                                {{$petDetail->gallery->count()}}
+                                                              </span>
+                                                        </a>
+
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('pets.show',$petDetail->id)}}" class="btn btn-success"><i
+                                                    <a href="{{route('pets.show',$petDetail->id)}}" class="btn btn-success btn-shadow"><i
                                                             class="fa-solid fa-book"></i></a>
                                                 </td>
                                                 <td>
@@ -117,7 +122,7 @@
                                 </table>
                             </div>
                             <!-- End Table with stripped rows -->
-                            <div class="d-flex justify-content-center">
+                            <div>
                                 {!! $petDetails->links() !!}
                             </div>
                         </div>

@@ -107,7 +107,7 @@
                                 </table>
                             </div>
                             <!-- End Table with stripped rows -->
-                            <div class="d-flex justify-content-center">
+                            <div>
                                 {!! $packageKeys->links() !!}
                             </div>
                         </div>

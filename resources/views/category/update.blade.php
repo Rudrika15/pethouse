@@ -86,10 +86,9 @@
 
                                 </div>
 
-
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary btn-shadow">Update</button>
-                                    <button type="reset" class="btn btn-secondary btn-shadow">Reset</button>
+                                    <button type="submit" class="btn btn-warning">Update</button>
+                                    <a href="{{ route('category.index') }}" class="btn btn-secondary">Cancel</a>
                                 </div>
                             </form><!-- End floating Labels Form -->
 

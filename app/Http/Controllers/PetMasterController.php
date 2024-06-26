@@ -55,10 +55,9 @@ class PetMasterController extends Controller
         // return $request->all();
 
         $request->validate([
-            'petMasterName' => 'required|unique:pet_masters,name',
+            'petMasterName' => 'required',
         ], [
             'petMasterName.required' => 'Pet Master Name is required',
-            'petMasterName.unique' => 'Pet Master Name already exists',
         ]);
 
         $petMaster = new PetMaster();
@@ -130,7 +129,7 @@ class PetMasterController extends Controller
         // echo $id;
         // return $request->toArray();
         $request->validate([
-            'petMasterName' => 'required|unique:pet_masters,name,' . $id . ',id',
+            'petMasterName' => 'required',
         ], [
             'petMasterName.require' => 'Pet Master Name is required',
             'petMasterName.unique' => 'Pet Master Name already exists',

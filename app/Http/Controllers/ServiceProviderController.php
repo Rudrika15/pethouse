@@ -63,8 +63,8 @@ class ServiceProviderController extends Controller
         $firsttab = Validator::make($request->all(),[
             'name'=>'required',
             'useremail'=>'required|email|unique:service_providers,email',
-            'phone'=>'required|min:11|numeric',
-            'whatsapp'=>'required|min:11|numeric',
+            'phone'=>'required|numeric|digits:10',
+            'whatsapp'=>'required|numeric|digits:10',
             'password'=>'required',
         ],[
             'name.required'=>'Name is required',
@@ -74,10 +74,8 @@ class ServiceProviderController extends Controller
             'password.required'=>'Password is required',
             'phone.numeric'=>'Phone No. must be numeric',
             'whatsapp.numeric'=>'Whatsapp No. must be numeric',
-            'phone.min'=>'Phone No. must be 10 digit',
-            'whatsapp.min'=>'Whatsapp No. must be 10 digit',
-            'phone.max'=>'Phone No. must be 10 digit',
-            'whatsapp.max'=>'Whatsapp No. must be 10 digit',
+            'phone.digits'=>'Phone No. must be 10 digits',
+            'whatsapp.digits'=>'Whatsapp No. must be 10 digits',
             'useremail.email'=>'Enter valid email address',
             'useremail.unique'=>'Email already exists',
         ]);
@@ -172,17 +170,61 @@ class ServiceProviderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ServiceProvider $serviceProvider)
+    public function edit($id)
     {
-        //
+        $serviceProvider = ServiceProvider::find($id);
+
+        return view('service_provider.update',compact('serviceProvider'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ServiceProvider $serviceProvider)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'useremail'=>'required|email|unique:service_providers,email,'.$id,
+            'phone'=>'required|numeric|digits:10',
+            'whatsapp'=>'required|numeric|digits:10',
+            'password'=>'required',
+        ],[
+            'name.required'=>'Name is required',
+            'useremail.required'=>'Email is required',
+            'phone.required'=>'Phone No. is required',
+            'whatsapp.required'=>'Whatsapp No. is required',
+            'password.required'=>'Password is required',
+            'phone.numeric'=>'Phone No. must be numeric',
+            'whatsapp.numeric'=>'Whatsapp No. must be numeric',
+            'phone.digits'=>'Phone No. must be 10 digits',
+            'whatsapp.digits'=>'Whatsapp No. must be 10 digits',
+            'useremail.email'=>'Enter valid email address',
+            'useremail.unique'=>'Email already exists',
+        ]);
+
+        $serviceProvider = ServiceProvider::find($id);
+        $serviceProvider->name = $request->name;
+        $serviceProvider->slug = SlugService::createSlug(ServiceProvider::class, 'slug', $request->name, ['unique' => true]);
+        $serviceProvider->email =$request->useremail;
+        $serviceProvider->phone = $request->phone;
+        $serviceProvider->whatsapp_no = $request->whatsapp;
+        $serviceProvider->password = bcrypt($request->password);
+        $serviceProvider->description = $request->description;
+        $serviceProvider->address = $request->address;
+        $serviceProvider->lat = $request->lat;
+        $serviceProvider->lng = $request->lng;
+        $serviceProvider->facebook_link = $request->facebook_link;
+        $serviceProvider->instagram_link = $request->instagram_link;
+        $serviceProvider->youtube_link = $request->youtube_link;
+        $serviceProvider->twitter_link = $request->twitter_link;
+        if($request->hasFile("pro_img")){
+            $file = $request->file('pro_img');
+            $filename = time() . $file->getClientOriginalName();
+            $file->move(public_path('service_provider'), $filename);
+            $serviceProvider->image = $filename;
+        }
+        $serviceProvider->save();
+        return redirect()->back()->with('message','👷‍♂️ Service Provider Updated Successfully');
     }
 
     /**

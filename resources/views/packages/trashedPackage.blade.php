@@ -100,7 +100,7 @@
                                 </table>
                             </div>
                             <!-- End Table with stripped rows -->
-                            <div class="d-flex justify-content-center">
+                            <div>
                                 {!! $packages->links() !!}
                             </div>
                         </div>

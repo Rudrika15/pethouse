@@ -95,7 +95,7 @@ class PetDetailController extends Controller
         $pet_details = new PetDetail();
 
         $pet_details->name = $request->petName;
-        $pet_details->slug = SlugService::createSLug(PetDetail::class, 'slug', $request->petName, ['unique' => true]);
+        $pet_details->slug = SlugService::createSlug(PetDetail::class, 'slug', $request->petName, ['unique' => true]);
         $pet_details->height = $request->petHeight;
         $pet_details->weight = $request->petWeight;
         $pet_details->origin = $request->petOrigin;
@@ -159,7 +159,7 @@ class PetDetailController extends Controller
         $petDetail = PetDetail::withTrashed()->find($id);
 
         $petDetail->name = $request->petName;
-        $petDetail->slug = SlugService::createSLug(PetDetail::class, 'slug', $request->petName, ['unique' => true]);
+        $petDetail->slug = SlugService::createSlug(PetDetail::class, 'slug', $request->petName, ['unique' => true]);
         $petDetail->height = $request->petHeight;
         $petDetail->weight = $request->petWeight;
         $petDetail->origin = $request->petOrigin;

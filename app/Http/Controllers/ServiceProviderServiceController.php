@@ -15,7 +15,7 @@ class ServiceProviderServiceController extends Controller
     public function index($id)
     {
         $services = Category::all();
-        $serviceProvider = ServiceProvider::find($id);
+        $serviceProvider = ServiceProvider::withTrashed()->find($id);
         // $serviceProviderService = array_column($serviceProvider->services->select('id')->toArray(),'id');
         $serviceProviderService =$serviceProvider->services->where('pivot.status', 'Active')->pluck('id')->toArray();
 
@@ -35,7 +35,7 @@ class ServiceProviderServiceController extends Controller
      */
     public function store(Request $request,$id)
     {
-        $serviceProvider = ServiceProvider::find($id);
+        $serviceProvider = ServiceProvider::withTrashed()->find($id);
         $activeServices = $serviceProvider->services->where('pivot.status', 'Active')->pluck('id')->toArray();
         $allServices = $serviceProvider->services->pluck('id')->toArray();
         $inActiveServices = $serviceProvider->services->where('pivot.status', '!=','Active')->pluck('id')->toArray();

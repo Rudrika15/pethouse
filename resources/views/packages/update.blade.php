@@ -148,10 +148,9 @@
                                     </div>
                                 </div>
                                 @endif
-
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                    <button type="submit" class="btn btn-warning">Update</button>
+                                    <a href="{{ route('package.index') }}" class="btn btn-secondary">Cancel</a>
                                 </div>
 
 

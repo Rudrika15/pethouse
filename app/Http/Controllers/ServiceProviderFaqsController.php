@@ -14,7 +14,7 @@ class ServiceProviderFaqsController extends Controller
      */
     public function index($id)
     {
-        $serviceProvider = ServiceProvider::find($id);
+        $serviceProvider = ServiceProvider::withTrashed()->find($id);
         return view('service_provider.faqs',compact('serviceProvider'));
     }
 

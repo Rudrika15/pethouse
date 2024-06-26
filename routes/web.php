@@ -135,6 +135,8 @@ Route::post('service-provider/store',[ServiceProviderController::class,'store'])
 Route::get('service-provider/softDelete/{id}',[ServiceProviderController::class,'softDelete'])->name('service.provider.softDelete');
 Route::get('service-provider/destroy/{id}',[ServiceProviderController::class,'destroy'])->name('service.provider.destroy');
 Route::get('service-provider/restore/{id}',[ServiceProviderController::class,'restore'])->name('service.provider.restore');
+Route::get('service-provider/edit/{id}',[ServiceProviderController::class,'edit'])->name('service.provider.edit');
+Route::post('service-provider/edit/{id}/update',[ServiceProviderController::class,'update'])->name('service.provider.update');
 
 Route::get('service-provider/{id}/faqs',[ServiceProviderFaqsController::class,'index'])->name('service.provider.faq.index');
 Route::post("service-provider/{id}/faqs/save",[ServiceProviderFaqsController::class,'store'])->name('servide.provider.faq.save');

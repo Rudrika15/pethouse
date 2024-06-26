@@ -88,7 +88,7 @@ class CategoryController extends Controller
     {
         // return $request->all();
         $request->validate([
-            'categoryName' => 'required|unique:categories,name',
+            'categoryName' => 'required',
         ], [
             'categoryName.required' => 'Please Enter Category Name',
             'categoryName.unique' => 'This Category Already Exists',
@@ -140,7 +140,7 @@ class CategoryController extends Controller
 
         // return $request->all();
         $request->validate([
-            'categoryName' => 'required|unique:categories,name,'.$id.',id',
+            'categoryName' => 'required',
         ], [
             'categoryName.required' => 'Please Enter Category Name',
             'categoryName.unique' => 'This Category Already Exists',

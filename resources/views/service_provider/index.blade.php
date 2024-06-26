@@ -56,6 +56,7 @@
                                             <th>
                                                 ID
                                             </th>
+                                            <th>Image</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone No.</th>
@@ -72,7 +73,10 @@
                                                 <td>
                                                     {{$serviceProvider->id}}
                                                 </td>
+                                                <td>
 
+                                                    <img src="{{asset('service_provider/'.$serviceProvider->image) }}" alt="{{$serviceProvider->name}}" class=" img-thumbnail object-fit-cover rounded-circle" style="max-height: 60px;height: 60px; max-width: 60px;width:60px;" />
+                                                </td>
                                                 <td>{{ $serviceProvider->name }}</td>
                                                 <td>{{ $serviceProvider->email }}</td>
 
@@ -123,7 +127,7 @@
                                                     <a href="{{route('service.provider.softDelete',$serviceProvider->id)}}"
                                                         class="btn btn-danger btn-shadow"><i
                                                             class="fa-solid fa-trash"></i></i></a>
-                                                    <a href=""
+                                                    <a href="{{route('service.provider.edit',$serviceProvider->id)}}"
                                                         class="btn btn-warning btn-shadow"><i
                                                             class="fa-solid fa-pencil"></i></a>
 
@@ -131,7 +135,7 @@
                                             </tr>
                                             @empty
                                         <tr>
-                                            <th colspan="9">
+                                            <th colspan="10">
                                                 <h2 class="text text-danger">🙅 Record Not Available</h2>
                                             </th>
                                         </tr>
@@ -142,7 +146,7 @@
                                 </table>
                             </div>
                             <!-- End Table with stripped rows -->
-                            <div class="d-flex justify-content-center">
+                            <div>
                                 {!! $serviceProviders->links() !!}
                             </div>
                         </div>

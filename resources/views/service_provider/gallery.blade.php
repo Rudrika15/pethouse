@@ -19,6 +19,7 @@
             align-content: center;
             text-align: center;
         }
+
 </style>
         <div class="pagetitle">
             <div class="row">
@@ -54,8 +55,8 @@
                                 </div>
 
                             </div>
-                            <div class="container"
-                                style="display: flex; flex-wrap: wrap;flex-direction: row;justify-content: space-evenly;">
+                            <div class="container flex-row"
+                                style="display: flex; flex-wrap: wrap;flex-direction: row;justify-content:space-evenly;">
 
                                 @foreach ($serviceProvider->gallery as $gallery)
 
@@ -65,17 +66,13 @@
                                             <i class="fa fa-times text-light"></i>
                                         </a>
                                         <!-- Card with an image on top -->
-                                        <div class="card card-3d-shadow-radius overflow-hidden"
-                                            style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;">
+                                        <div class="card image-box card-3d-shadow-radius overflow-hidden"
+                                        style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;">
+                                        <a href="{{asset('service_provider_gallery/'.$serviceProvider->id.'/'.$gallery->image)}}" target="_blank">
                                             <img src="{{asset('service_provider_gallery/'.$serviceProvider->id.'/'.$gallery->image)}}"
-                                                class="card-img-top object-fit-contain" style="height: 200px;"
+                                                class="card-img-top object-fit-cover" style="height: 200px;"
                                                 alt="{{$gallery->image}}">
-                                            <div class="card-body p-0 text-center">
-                                                {{-- <h5 class="card-title">Card with an image on top</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> --}}
-                                                {{-- <a href=""
-                                                    class="btn btn-danger btn-shadow"><i class="fa-solid fa-trash"></i></a> --}}
-                                            </div>
+                                            </a>
                                         </div><!-- End Card with an image on top -->
                                     </div>
                                 @endforeach

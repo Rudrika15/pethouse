@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\PackageKeyController;
 use App\Http\Controllers\Api\PetController;
 use App\Http\Controllers\Api\PetMasterController;
+use App\Http\Controllers\Api\ServiceProviderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,6 @@ Route::get('/user', function (Request $request) {
 
 Route::get("/categories",[CategoryController::class,'index']);
 
-
 Route::get("/petmasters",[PetMasterController::class,'index']);
 
 Route::get("/pets",[PetController::class,'index']);
@@ -22,3 +22,5 @@ Route::get("/pets",[PetController::class,'index']);
 Route::get("/packagekeys",[PackageKeyController::class,'index']);
 
 Route::get("/packages",[PackageController::class,'index']);
+
+Route::get("/service-providers",[ServiceProviderController::class,'index']);
