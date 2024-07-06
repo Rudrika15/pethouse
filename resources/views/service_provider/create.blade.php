@@ -494,7 +494,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if (!empty(old('faq')) && count(old('faq')['ans']) > 2)
+                                        @if (!empty(old('faq')) && count(old('faq')['ans']) > 1)
                                         @for($i=1;$i<count(old('faq')['que']);$i++)
                                         <div class="col-lg-12 p-0 faq-box mt-4 ">
                                             <div class="card m-0 btn-shadow faq-card">
